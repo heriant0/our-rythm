@@ -53,7 +53,7 @@ class UserController {
             })
             .catch(next)
     }
-    }
+    
 
     static async login(req, res, next) {
         const email = req.body.email
