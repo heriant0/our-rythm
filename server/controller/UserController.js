@@ -2,10 +2,16 @@ const { User } = require('../models');
 const { checkPassword } = require('../helper/bcrypt');
 const { encode } = require('../helper/jwt')
 const verificationToken = require('../helper/googleOauth')
+const axios = require('axios')
+
+const mailboxValidator = axios.create({n
+    baseURL: 'https://api.mailboxvalidator.com/v1/validation/single?key=ZLDJ9PTKF83YSRQUUJW9&',
+});
 
 class UserController {
 
     static register(req, res, next) {
+
         let email = req.body.email
         const form = {
             name: req.body.name,
@@ -26,6 +32,7 @@ class UserController {
                 next(err)
             });
     }
+    
 
     static async login(req, res, next) {
         const email = req.body.email
