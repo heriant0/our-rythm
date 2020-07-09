@@ -6,6 +6,7 @@ class UserController {
 
     static register(req, res, next) {
         const form = {
+            name: req.body.name,
             email: req.body.email,
             password: req.body.password
         };
@@ -35,10 +36,10 @@ class UserController {
                     const token = encode(dataUser.id, dataUser.email);
                     return res.status(200).json({
                         access_token: token,
+                        user_name: dataUser.name
                     })
                 } else {
                     next({ errCode: "INVALID_EMAIL", message: "invalid username and password" })
-
                 }
             }
         } catch (err) {
@@ -46,7 +47,6 @@ class UserController {
             next(err)
         }
     }
-
 }
 
 module.exports = UserController;
