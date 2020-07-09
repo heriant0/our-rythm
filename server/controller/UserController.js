@@ -1,6 +1,7 @@
-const { Todo, User } = require('../models');
+const { User } = require('../models');
 const { checkPassword } = require('../helper/bcrypt');
 const { encode } = require('../helper/jwt')
+const verificationToken = require('../helper/googleOauth')
 
 class UserController {
 
@@ -47,6 +48,45 @@ class UserController {
             next(err)
         }
     }
+
+    static googleSignIn(req, res ,next){
+        let google_token = req.headers.google_token
+        let email = null
+        let newUser = false
+        console.log('<<<<<<<test login')
+        verificationToken(google_token)
+        .then(payload => {
+            email = payload.email
+            return User.findOne({
+                where: {
+                    email
+                }
+            })
+        })
+        .then(user => {
+            if(user){
+                return user
+            } else {
+                newUser = true
+                return User.create({
+                    email,
+                    password: process.env.DEFAULT_GOOGLE_PASSWORD
+                })
+            }
+        })
+        .then(user => {
+            let code = newUser ? 202 : 201
+            const token = encode({
+                id: user.id,
+                email: user.email
+            },process.env.SECRET)
+            res.status(code).json({token: token})
+        })
+        .catch(err => {
+            next(err)
+        })
+    }
+
 }
 
 module.exports = UserController;
