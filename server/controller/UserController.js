@@ -2,21 +2,57 @@ const { User } = require('../models');
 const { checkPassword } = require('../helper/bcrypt');
 const { encode } = require('../helper/jwt')
 const verificationToken = require('../helper/googleOauth')
+const axios = require('axios')
+
+const mailboxValidator = axios.create({
+    baseURL: 'https://api.mailboxvalidator.com/v1/validation/single?key=ZLDJ9PTKF83YSRQUUJW9&',
+});
 
 class UserController {
 
     static register(req, res, next) {
-        const form = {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
-        };
-        User.create(form)
-            .then((dataUser) => {
-                return res.status(201).json(dataUser);
-            }).catch((err) => {
-                next(err)
-            });
+        // const form = {
+        //     name: req.body.name,
+        //     email: req.body.email,
+        //     password: req.body.password
+        // };
+
+        const {name,email,password}= req.body
+
+
+        // User.create(form)
+        //     .then((dataUser) => {
+        //         return res.status(201).json(dataUser);
+        //     }).catch((err) => {
+        //         next(err)
+        //     });
+            User
+            .findOne({
+                where: {
+                    email: email
+                }
+            })
+            .then(user => {
+                if(!user){
+                    return mailboxValidator.get(`&email=${email}`)
+                }
+                throw (400, 'Email already registered')
+            })
+            .then(user => {
+                if(user.data.is_verified == 'True'){
+                    return User.create({
+                        name,
+                        email,
+                        password
+                    })
+                }
+                throw (400, 'Email does not exist or not verified')
+            })
+            .then(({ name, email }) => {
+                res.status(201).json({ name, email })
+            })
+            .catch(next)
+    }
     }
 
     static async login(req, res, next) {
