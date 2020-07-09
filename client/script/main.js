@@ -9,11 +9,13 @@ $(document).ready(function () {
 function beforeLogin() {
   $(".form-login").show();
   $(".form-register").hide();
+  $("#navbar").hide();
 }
 
 function afterLogin() {
   $(".form-login").hide();
   $(".form-register").hide();
+  $("#navbar").show();
 }
 
 function callRegister() {
@@ -84,4 +86,23 @@ function logoutProcess() {
   localStorage.clear();
   $(".form-login").show();
   $(".form-register").hide();
+  let auth2 = gapi.auth2.getAuthInstance();
+            auth2.disconnect();
+}
+
+function onSignIn(googleUser){
+  let google_token = googleUser.getAuthResponse().id_token;
+  console.log('test login')
+  $.ajax({
+      method: "post",
+      url: 'http://localhost:3000/googleSignIn',
+      headers: {google_token}
+  })
+  .done(data => {
+      localStorage.setItem('token',data.token)
+      afterLogin()
+  })
+  .fail(err => {
+      console.log(err.responseJSON)
+  })
 }
