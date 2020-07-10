@@ -13,6 +13,8 @@ class UserController {
     static register(req, res, next) {
 
         let email = req.body.email
+        // console.log(req.body);
+        
         const form = {
             name: req.body.name,
             email: email,
@@ -22,12 +24,26 @@ class UserController {
             .then((emailCheck) => {
                 if (emailCheck) {
                     return res.status(400).json('Email already Registered');
-                } else {
-                    return User.create(form);
+                }else{
+                    if (!emailCheck) {
+                        return mailboxValidator.get(`&email=${email}`)
+                    }
                 }
             })
-            .then((dataUser) => {
-                return res.status(201).json(dataUser);
+            .then((result) => {
+                if (result.data.is_verified == "True") {
+                    // console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+                    return User.create(
+                        form
+                        )
+                    }
+                    else{
+                        return res.status(400).json('Email is invalid');
+                    }
+                })
+            .then((data) => {
+                // console.log(data,'datacdsaaaaaa');
+                return res.status(201).json(data);
             }).catch((err) => {
                 next(err)
             });
