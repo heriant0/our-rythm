@@ -4,7 +4,7 @@ const { encode } = require('../helper/jwt')
 const verificationToken = require('../helper/googleOauth')
 const axios = require('axios')
 
-const mailboxValidator = axios.create({n
+const mailboxValidator = axios.create({
     baseURL: 'https://api.mailboxvalidator.com/v1/validation/single?key=ZLDJ9PTKF83YSRQUUJW9&',
 });
 
