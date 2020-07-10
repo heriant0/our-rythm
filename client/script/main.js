@@ -10,12 +10,15 @@ function beforeLogin() {
   $(".form-login").show();
   $(".form-register").hide();
   $("#navbar").hide();
+  $(".list-music").hide();
+
 }
 
 function afterLogin() {
   $(".form-login").hide();
   $(".form-register").hide();
   $("#navbar").show();
+  $(".list-music").show();
 }
 
 function callRegister() {
@@ -74,6 +77,7 @@ function loginProcess(event) {
       localStorage.token = result.access_token;
       localStorage.email = email
       $(".form-login").hide();
+      getDezeer(event)
     })
     .fail((err) => {
       console.log(err, 'error ajax login');
@@ -86,8 +90,10 @@ function loginProcess(event) {
 
 function logoutProcess() {
   localStorage.clear();
-  $(".form-login").show();
-  $(".form-register").hide();
+  beforeLogin()
+  // $(".form-login").show();
+  // $(".form-register").hide();
+
   let auth2 = gapi.auth2.getAuthInstance();
   auth2.disconnect();
 }
@@ -114,6 +120,9 @@ function onSignIn(googleUser) {
 function getDezeer(event) {
   event.preventDefault()
   let songs = $("#search").val()
+  if (songs == "") {
+    songs = "Taylor"
+  }
   console.log(songs);
   console.log('check dezeeer')
   $.ajax({
@@ -125,7 +134,8 @@ function getDezeer(event) {
       data.forEach(playlist => {
         console.log(playlist)
         $('.list-music').append(`
-            <div class="card" style="width: 18rem;">
+          <div class="col-3">
+            <div class="card">
               <img src="${playlist.picture}" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">${playlist.title}</h5>
@@ -134,6 +144,7 @@ function getDezeer(event) {
                 <a href="#" onclick="mailgun('${playlist.title}','${playlist.picture}')" class="btn btn-primary btn-md">Send Email</a>
               </div>
             </div>
+          </div>
         `)
       });
 

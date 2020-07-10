@@ -22,7 +22,7 @@
         <input class="form-control mr-sm-2" type="search" id="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> <br>
       </form>
-      <button class="btn btn-danger" onclick="logoutProcess()">Logout</button>
+      <button class="btn btn-outline-danger" onclick="logoutProcess()">Logout</button>
     </nav>
   </div>
 
@@ -48,65 +48,70 @@
                 <a type="submit" onclick="callRegister()">Register</a>
               </label>
             </div>
-            <button type="submit" class="btn btn-primary">Signin</button>
-            <div style="align-items: center; justify-content: center;">
-              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            <div class="row">
+              <div class="col-4">
+                <button type="submit" class="btn btn-primary">Signin</button>
+              </div>
+              <div style="align-items: center; justify-content: center;">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              </div>
             </div>
-          </form>
+
         </div>
+        </form>
       </div>
-    </section>
+  </div>
+  </section>
 
-    <!-- Form Register -->
-    <section class="form-register">
-      <div class="row">
-        <div class="col-4">
-          <form onsubmit="registerProcess(event)">
-            <h3>Sign Up</h3>
+  <!-- Form Register -->
+  <section class="form-register">
+    <div class="row">
+      <div class="col-4">
+        <form onsubmit="registerProcess(event)">
+          <h3>Sign Up</h3>
 
-            <div class="form-group">
-              <label for="userName">User name</label>
-              <input type="text" class="form-control" id="userName">
-            </div>
+          <div class="form-group">
+            <label for="userName">User name</label>
+            <input type="text" class="form-control" id="userName">
+          </div>
 
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                else.</small>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" id="passwordRegister">
-            </div>
-            <button type="submit" class="btn btn-primary" onclick="signUp()">Signup</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <div class="">
-      <div class="list-music d-flex flex-wrap">
-
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+              else.</small>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="passwordRegister">
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="signUp()">Signup</button>
+        </form>
       </div>
     </div>
+  </section>
+
+  <div class="list-music row">
+
+  </div>
 
 
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"></script>
-    <!-- google api -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap JS-->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <!-- google api -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script src="./script/main.js"></script>
+  <script src="./script/main.js"></script>
 </body>
 
 </html>

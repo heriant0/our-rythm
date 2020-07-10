@@ -17,16 +17,16 @@ module.exports = class DeezerApiControllers {
                 let { data } = song
                 let lagu = []
                 data.data.forEach((playlist, index) => {
-                    if (index < 6) {
-                        let temp = {
-                            title: playlist.title,
-                            preview: playlist.preview,
-                            picture: playlist.artist.picture_xl
-
-                        }
-                        lagu.push(temp)
+                    // if (index < 6) {
+                    let temp = {
+                        title: playlist.title,
+                        preview: playlist.preview,
+                        picture: playlist.artist.picture_xl
 
                     }
+                    lagu.push(temp)
+
+                    // }
 
                 });
                 res.status(200).json(lagu)
