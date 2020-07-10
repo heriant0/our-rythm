@@ -4,7 +4,6 @@ class MailgunController{
         let mail = req.body
         console.log(req.body)
         sendEmail(mail)
-
     }
 }
 
