@@ -8,7 +8,7 @@ module.exports = {
             from: "me@samples.mailgun.org",
             to: "fetuvici@gmail.com",
             subject: data.title,
-            text: `<p>${data.album}</p>`
+            html: `<p>${data.album}</p>`
         };
 
         return mailgun.messages().send(email, function(error, body) {

@@ -126,7 +126,7 @@ function getDezeer(event) {
                 <h5 class="card-title">${playlist.title}</h5>
 
                 <a href="${playlist.preview}" target="blank" class="btn btn-primary btn-md">Play</a>
-                <a href="#" class="btn btn-primary btn-md">Send Email</a>
+                <a href="#" onclick="mailgun()" class="btn btn-primary btn-md">Send Email</a>
               </div>
             </div>
         `)
@@ -139,4 +139,22 @@ function getDezeer(event) {
     .fail(err => {
       console.log(err.responseJSON)
     })
+}
+
+function mailgun(id){
+  console.log("<<<<<<<<<<<<< tets send")
+  $.ajax({
+    method: "post",
+    url: `http://localhost:3000/sendmail/`,
+    data: {
+      subject: id,
+      html: id
+    }
+  })
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
