@@ -1,7 +1,7 @@
 {
     "development": {
         "username": "postgres",
-        "password": "herlian123",
+        "password": "postgres",
         "database": "our_rythm_DB",
         "host": "127.0.0.1",
         "dialect": "postgres"

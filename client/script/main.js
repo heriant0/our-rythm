@@ -110,8 +110,9 @@ function onSignIn(googleUser) {
   })
     .done(data => {
       localStorage.setItem('token', data.token)
-      localStorage.setItem('email',profile.getEmail())
+      localStorage.setItem('email', profile.getEmail())
       afterLogin()
+      getDezeer(event)
     })
     .fail(err => {
       console.log(err.responseJSON)
@@ -158,9 +159,9 @@ function getDezeer(event) {
     })
 }
 
-function mailgun(title,picture){
+function mailgun(title, picture) {
   console.log("<<<<<<<<<<<<< tets send")
-  console.log(title , picture)
+  console.log(title, picture)
   $.ajax({
     method: "post",
     url: `http://localhost:3000/sendmail/`,
@@ -170,10 +171,18 @@ function mailgun(title,picture){
       to: localStorage.email
     }
   })
-  .then(data => {
-    console.log(data)
-  })
-  .catch(err => {
-    console.log(err)
-  })
+    .then(data => {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
+
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
+

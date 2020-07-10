@@ -63,34 +63,35 @@
       </div>
   </div>
   </section>
+  <div class="container mt-3">
+    <!-- Form Register -->
+    <section class="form-register">
+      <div class="row">
+        <div class="col-4">
+          <form onsubmit="registerProcess(event)">
+            <h3>Sign Up</h3>
 
-  <!-- Form Register -->
-  <section class="form-register">
-    <div class="row">
-      <div class="col-4">
-        <form onsubmit="registerProcess(event)">
-          <h3>Sign Up</h3>
+            <div class="form-group">
+              <label for="userName">User name</label>
+              <input type="text" class="form-control" id="userName">
+            </div>
 
-          <div class="form-group">
-            <label for="userName">User name</label>
-            <input type="text" class="form-control" id="userName">
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-              else.</small>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="passwordRegister">
-          </div>
-          <button type="submit" class="btn btn-primary" onclick="signUp()">Signup</button>
-        </form>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                else.</small>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="passwordRegister">
+            </div>
+            <button type="submit" class="btn btn-primary">Signup</button>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <div class="list-music row">
 
@@ -110,6 +111,7 @@
   <!-- google api -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
   <script src="./script/main.js"></script>
 </body>
