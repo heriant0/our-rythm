@@ -100,7 +100,8 @@ function logoutProcess() {
 
 function onSignIn(googleUser) {
   let google_token = googleUser.getAuthResponse().id_token;
-  console.log(googleUser.Qt)
+  let profile = googleUser.getBasicProfile()
+  // console.log(profile.getEmail())
   console.log('test login')
   $.ajax({
     method: "post",
@@ -109,7 +110,7 @@ function onSignIn(googleUser) {
   })
     .done(data => {
       localStorage.setItem('token', data.token)
-      localStorage.email = googleUser.Qt.Au
+      localStorage.setItem('email',profile.getEmail())
       afterLogin()
     })
     .fail(err => {
