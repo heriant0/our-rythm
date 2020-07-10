@@ -87,22 +87,56 @@ function logoutProcess() {
   $(".form-login").show();
   $(".form-register").hide();
   let auth2 = gapi.auth2.getAuthInstance();
-            auth2.disconnect();
+  auth2.disconnect();
 }
 
-function onSignIn(googleUser){
+function onSignIn(googleUser) {
   let google_token = googleUser.getAuthResponse().id_token;
   console.log('test login')
   $.ajax({
-      method: "post",
-      url: 'http://localhost:3000/googleSignIn',
-      headers: {google_token}
+    method: "post",
+    url: 'http://localhost:3000/googleSignIn',
+    headers: { google_token }
   })
-  .done(data => {
-      localStorage.setItem('token',data.token)
+    .done(data => {
+      localStorage.setItem('token', data.token)
       afterLogin()
-  })
-  .fail(err => {
+    })
+    .fail(err => {
       console.log(err.responseJSON)
+    })
+}
+
+function getDezeer(event) {
+  event.preventDefault()
+  let songs = $("#search").val()
+  console.log(songs);
+  console.log('check dezeeer')
+  $.ajax({
+    method: "GET",
+    url: `http://localhost:3000/api/${songs}`,
   })
+    .done(data => {
+      $('.list-music').empty()
+      data.forEach(playlist => {
+        $('.list-music').append(`
+            <div class="card" style="width: 18rem;">
+              <img src="${playlist.picture}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">${playlist.title}</h5>
+
+                <a href="${playlist.preview}" target="blank" class="btn btn-primary btn-md">Play</a>
+                <a href="#" class="btn btn-primary btn-md">Send Email</a>
+              </div>
+            </div>
+        `)
+      });
+
+
+      console.log((data));
+      afterLogin()
+    })
+    .fail(err => {
+      console.log(err.responseJSON)
+    })
 }
