@@ -55,6 +55,7 @@ function registerProcess() {
     })
 }
 
+
 function loginProcess(event) {
   event.preventDefault();
 
@@ -71,6 +72,7 @@ function loginProcess(event) {
     .done((result) => {
       console.log(result, 'hasil login ajax');
       localStorage.token = result.access_token;
+      localStorage.email = email
       $(".form-login").hide();
     })
     .fail((err) => {
@@ -92,6 +94,7 @@ function logoutProcess() {
 
 function onSignIn(googleUser) {
   let google_token = googleUser.getAuthResponse().id_token;
+  console.log(googleUser.Qt)
   console.log('test login')
   $.ajax({
     method: "post",
@@ -100,6 +103,7 @@ function onSignIn(googleUser) {
   })
     .done(data => {
       localStorage.setItem('token', data.token)
+      localStorage.email = googleUser.Qt.Au
       afterLogin()
     })
     .fail(err => {
@@ -119,6 +123,7 @@ function getDezeer(event) {
     .done(data => {
       $('.list-music').empty()
       data.forEach(playlist => {
+        console.log(playlist)
         $('.list-music').append(`
             <div class="card" style="width: 18rem;">
               <img src="${playlist.picture}" class="card-img-top" alt="...">
@@ -126,7 +131,7 @@ function getDezeer(event) {
                 <h5 class="card-title">${playlist.title}</h5>
 
                 <a href="${playlist.preview}" target="blank" class="btn btn-primary btn-md">Play</a>
-                <a href="#" class="btn btn-primary btn-md">Send Email</a>
+                <a href="#" onclick="mailgun('${playlist.title}','${playlist.picture}')" class="btn btn-primary btn-md">Send Email</a>
               </div>
             </div>
         `)
@@ -139,4 +144,24 @@ function getDezeer(event) {
     .fail(err => {
       console.log(err.responseJSON)
     })
+}
+
+function mailgun(title,picture){
+  console.log("<<<<<<<<<<<<< tets send")
+  console.log(title , picture)
+  $.ajax({
+    method: "post",
+    url: `http://localhost:3000/sendmail/`,
+    data: {
+      subject: title,
+      html: `<img src="${picture}">`,
+      to: localStorage.email
+    }
+  })
+  .then(data => {
+    console.log(data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
